@@ -1,45 +1,45 @@
 require "sinatra"
 require "sinatra/reloader"
+require "http"
+require "better_errors"
+require "binding_of_caller"
 
 get("/") do
-  erb(:nav)
-  erb(:home, {:layout => :layout})
+  erb(:home)
 end
 
 rps = ["rock", "paper", "scissors"]
-@they = rps.sample
+# @they = rps.sample
 
 #Play rock!
 get("/rock") do
-  erb(:nav, {:layout=>:layout})
-  if @they == "rock"
-    @outcome = "We tied!"
+@they = rps.sample
+ if @they == "rock"
+   @outcome = "We tied!"
   elsif @they == "paper"
     @outcome = "We lost!"
   else
     @outcome = "We won!"
   end
-  erb(:rock, {:layout => :layout})
-  erb(:rules, {:layout=>:layout})
+  erb(:rock)
 end
 
 #Play paper!
 get("/paper") do
-  erb(:nav, {:layout=>:layout})
-  if @they == "rock"
-    @outcome = "We won!"
-  elsif @they == "paper"
-    @outcome = "We tied!"
+  @they = rps.sample
+ if @they == "rock"
+   @outcome = "We won!"
+ elsif @they == "paper"
+   @outcome = "We tied!"
   else
     @outcome = "We lost!"
   end
-  erb(:paper, {:layout => :layout})
-  erb(:rules, {:layout=>:layout})
+  erb(:paper)
 end
 
 #Play scissors!
 get("/scissors") do
-  erb(:nav, {:layout=>:layout})
+  @they = rps.sample
   if @they == "rock"
     @outcome = "We lost!"
   elsif @they == "paper"
@@ -47,6 +47,5 @@ get("/scissors") do
   else
     @outcome = "We tied!"
   end
-  erb(:scissors, {:layout => :layout})
-  erb(:rules, {:layout=>:layout})
+  erb(:scissors)
 end
